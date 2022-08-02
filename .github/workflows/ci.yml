@@ -15,10 +15,21 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3  
       
-      - name: Run markdown lint
+    - run: mkdir -p path/to/artifact
+
+    - run: echo hello > path/to/artifact/world.txt
+
+    - uses: actions/upload-artifact@v3
+    with:
+    name: my-artifact
+    path: path/to/artifact/world.txt
+    
+    - name: Run markdown lint
      run: |
        npm install remark-cli remark-preset-lint-consistent
        npx remark . --use remark-preset-lint-consistent --frail
+       
+   
        
      - uses: actions/upload-artifact@main
         with:
